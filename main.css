@@ -1,0 +1,11 @@
+.corpo{
+    margin: 0;
+    width:90%;
+    height: auto;
+
+}
+.enquadramento_canvas{
+  border: solid;
+  border-width: 1px;
+  border-color: black;
+}
