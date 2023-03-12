@@ -25,56 +25,63 @@ var c = canvas.getContext('2d')
     //c.stroke();
    // c.strokeStyle ="purple"}
 
-    function Circle(x,y,dx,dy,radius){
+
+    function Circle(x, y, dx, dy, radius){
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
-        this.radius = radius
+        this.radius = radius;
 
         this.draw = function()  {
-        c.beginPath();
-        c.strokeStyle ="purple"
-        c.arc(this.x ,this.y ,this.radius ,0, Math.PI * 2, false);
-        c.stroke();
+            c.beginPath();
+            c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            c.strokeStyle ="lightblue";
+            c.stroke();
+            c.fillStyle = "rgba(30, 155, 210    , 0.5)"
+            c.fill();
         }
         this.update = function (){
-            if (this.x + this.radius >innerWidth || this.x- this.radius < 0){
-                this.dx = -this.dx;
+            if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
+                this.dx = - this.dx;
             }
-            if (this.y + this.radius >innerHeight || this.y- this.radius < 0){
-                this.dy = -this.dy;
+            if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
+                this.dy = - this.dy;
             }
         this.x += this.dx;
         this.y += this.dy
+
+        this.draw();
         }
     }
 
-    var circle = new Circle(200,200);
+   //x= Math.random()* innerWidth;
+   //var dx = (Math.random()- 0.5)*20;
+   //y=Math.random()* innerHeight;
+   //var dy = (Math.random()- 0.5)*20;
+   //var radius = 30
 
+   var circleArray = [];
 
+   for(var i=0; i < 100; i++){
+        var radius = 30
+        x= Math.random()* (innerWidth - radius*2)+ radius;
+        var dx = (Math.random()- 0.5)*2;
+        y=Math.random()*(innerHeight - radius*2)+ radius;
+        var dy = (Math.random()- 0.5)*2;
+        circleArray.push(new Circle(x, y, dx, dy, radius    ));
 
-    x= Math.random()* innerWidth;
-    var dx = (Math.random()- 0.5)*8;
-    y=Math.random()* innerHeight;
-    var dy = (Math.random()- 0.5)*8;
-    var radius = 30
+   }
+
+    
+
+  
     function animate(){
         requestAnimationFrame(animate);
         c.clearRect(0,0,innerWidth,innerHeight);
-        circle.draw();
+       for(var i = 0; i<circleArray.length; i++){
+            circleArray[i].update();
+       }
 
-        c.beginPath();
-        c.strokeStyle ="purple"
-        c.arc(x ,y ,radius ,0, Math.PI * 2, false);
-        c.stroke();
-        if (x + radius >innerWidth || x-radius < 0){
-            dx = -dx;
-        }
-        if (y + radius >innerHeight || y-radius < 0){
-            dy = -dy;
-        }
-        x += dx;
-        y += dy
     }   
    requestAnimationFrame(animate);
